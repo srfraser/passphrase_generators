@@ -20,12 +20,9 @@ where
 fn main() {
     let filename = "/usr/share/dict/words";
     let length = 4;
-    let wordlist = read_dictionary(filename);
-    let wordlist_length = wordlist.len();
-    let mut rng = thread_rng();
+    let mut wordlist = read_dictionary(filename);
 
-    for _ in 0..length {
-        print!("{} ", wordlist[rng.gen_range(0, wordlist_length)]);
-    }
-    println!();
+    thread_rng().shuffle(&mut wordlist);
+    println!("{}", wordlist.iter().take(length).map(|s| s.clone()).collect::<Vec<_>>().join(" "));
+
 }
